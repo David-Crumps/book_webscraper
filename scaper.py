@@ -43,17 +43,15 @@ def get_availability_on_page():
     for element in elements:
         print(element.text)
 
-def find_all_book_names_mutli_page():
-    for counter in range(2):
-        h3_elements = driver.find_element(By.TAG_NAME, 'h3')
-        if h3_elements:
-            print("Yipee")
-        else:
-            print("No h3 elements on this page")
+
 
 def next_page():
     nextButton = driver.find_element(By.LINK_TEXT, 'next')
     nextButton.click()
+
+def go_to_philosophy_page():
+    philosphyButton = driver.find_element(By.LINK_TEXT, 'Philosophy')
+    philosphyButton.click()
     
 
 
@@ -62,7 +60,7 @@ def next_page():
 def main():
     driver.get('https://books.toscrape.com')
     time.sleep(5)
-    get_availability_on_page()
+    go_to_philosophy_page()
     driver.quit()
 
 if __name__ == "__main__":
