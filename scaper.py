@@ -4,38 +4,12 @@ from selenium.webdriver.common.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options as chromeOptions
 from selenium.common.exceptions import NoSuchElementException
+import pandas as pd
 
-'''
-def find_all_ids():
-     elements = driver.find_elements(By.XPATH, '//*[@id]')
-     for element in elements:
-         print(element.get_attribute('id'))
-
-#Book titles stored between 'h3' tags, which contain 'a' tags, which hold the title
-def get_book_titles_on_page():
-    h3_elements = driver.find_elements(By.TAG_NAME, 'h3')
-    if h3_elements:
-        for element in h3_elements:
-            a_tag = element.find_element(By.TAG_NAME, 'a')
-            print(a_tag.get_attribute('title'))
-    else:
-        print("No h3 elements found on this page")
-
-def get_prices_on_page():
-    elements = driver.find_elements(By.CLASS_NAME, "price_color")
-    for element in elements:
-        print(element.text)
-
-def get_availability_on_page():
-    elements = driver.find_elements(By.CSS_SELECTOR, "p.instock.availability")
-    for element in elements:
-        print(element.text)
-
-def go_to_philosophy_page():
-    philosphyButton = driver.find_element(By.LINK_TEXT, 'Philosophy')
-    philosphyButton.click()
-'''
-    
+#Should take in a dataframe object
+def exportToExcel(dataFrame):
+    dataFrame.to_excel("scraped_books.xlsx", index=False, engine='openpyxl')
+       
 class BookScraper:
     def __init__(self, baseUrl, headless=True):
         self.baseUrl = baseUrl
@@ -74,6 +48,9 @@ class BookScraper:
         while canNext:
             self.scrapeCurrentPage()
             canNext = self.nextPage()
+    
+    def getData(self):
+        return pd.DataFrame(self.bookData)
 
     def nextPage(self):
         try:
@@ -96,9 +73,7 @@ def main():
     scraper = BookScraper("https://books.toscrape.com", False)
     scraper.scrapeAllPages()
     scraper.close()
-
-    for key, value in scraper.bookData.items():
-        print(f"{key}: {value}")
+    exportToExcel(scraper.getData())
 
 if __name__ == "__main__":
     main()
