@@ -13,10 +13,7 @@ book_data = {
 
 #options.add_argument("--headless")
 #options.add_argument("log-level=3") #Deprecated error messages are driving me insane
-
-
-driver = webdriver.Chrome(options=options)
-
+'''
 def find_all_ids():
      elements = driver.find_elements(By.XPATH, '//*[@id]')
      for element in elements:
@@ -52,6 +49,7 @@ def next_page():
 def go_to_philosophy_page():
     philosphyButton = driver.find_element(By.LINK_TEXT, 'Philosophy')
     philosphyButton.click()
+'''
     
 class BookScraper:
     def __init__(self, baseUrl, headless=True):
