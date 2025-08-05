@@ -70,10 +70,11 @@ class BookScraper:
 
 
 def main():
-    scraper = BookScraper("https://books.toscrape.com", False)
-    scraper.scrapeAllPages()
-    scraper.close()
-    exportToExcel(scraper.getData())
+    #scraper = BookScraper("https://books.toscrape.com", False)
+    #scraper.scrapeAllPages()
+    #scraper.close()
+    #exportToExcel(scraper.getData())
+    print("Hi")
 
 if __name__ == "__main__":
     main()
