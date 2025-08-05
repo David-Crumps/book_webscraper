@@ -10,9 +10,9 @@ book_data = {
     "availability" : []
 }
 
-options = chromeOptions()
+
 #options.add_argument("--headless")
-options.add_argument("log-level=3") #Deprecated error messages are driving me insane
+#options.add_argument("log-level=3") #Deprecated error messages are driving me insane
 
 
 driver = webdriver.Chrome(options=options)
@@ -53,15 +53,29 @@ def go_to_philosophy_page():
     philosphyButton = driver.find_element(By.LINK_TEXT, 'Philosophy')
     philosphyButton.click()
     
+class BookScraper:
+    def __init__(self, baseUrl, headless=True):
+        self.baseUrl = baseUrl
+        options = chromeOptions()
+        if headless:
+            options.add_argument("--headless")
+        
+        self.driver = webdriver.Chrome(options=options)
+        self.driver.get(self.baseUrl)
+    
+
+    def close(self):
+        self.driver.quit()
+
+
 
 
 
 
 def main():
-    driver.get('https://books.toscrape.com')
+    scraper = BookScraper("https://books.toscrape.com")
     time.sleep(5)
-    go_to_philosophy_page()
-    driver.quit()
+    scraper.close()
 
 if __name__ == "__main__":
     main()
